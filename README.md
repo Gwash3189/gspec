@@ -7,11 +7,23 @@
 gleam add gspec
 ```
 ```gleam
-import gspec
+import gspec.{
+  be, contain, empty, equal, expect, false, have, include, include_exactly,
+  member, member_with_value, not, start_with, to, true,
+}
 
 pub fn main() {
-  // TODO: An example of the project in use
+  gleeunit.main()
 }
+
+pub fn expect_chain_test() {
+  1
+  |> expect
+  |> to
+  |> equal(1)
+}
+
+// ...
 ```
 
 Further documentation can be found at <https://hexdocs.pm/gspec>.
