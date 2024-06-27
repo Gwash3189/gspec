@@ -32,9 +32,16 @@ fn walk_until(
     True -> Error(Nil)
     False -> {
       case current_index == requested_index {
-        True -> result.flatten(Ok(list.first(arr)))
+        True -> {
+          arr
+          |> first
+          |> Ok
+          |> result.flatten
+        }
         False -> {
-          walk_until(tail(arr), requested_index, current_index + 1)
+          arr
+          |> tail
+          |> walk_until(requested_index, current_index + 1)
         }
       }
     }
@@ -51,7 +58,7 @@ fn private_each_with_index(
     True, _ -> Nil
     False, arr -> {
       let _ =
-        result.try_recover(list.first(arr), with: fn(_) {
+        result.try_recover(first(arr), with: fn(_) {
           Error("Unable to get element from list")
         })
         |> result.then(fn(head) { Ok(func(head, index)) })

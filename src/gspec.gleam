@@ -4,7 +4,7 @@ import gleam/option.{type Option}
 import gleam/result
 import gleam/string
 import gleeunit/should
-import gspec/list_lib
+import gspec/list_ext
 
 /// A container for a value that is being asserted on.
 /// Can be Not(x) when asserting that a value is not equal to something.
@@ -316,10 +316,10 @@ pub fn include_exactly(container: Container(List(any)), items: List(any)) -> Nil
 
   case container {
     Expect(expected_list) -> {
-      list_lib.each_with_index(expected_list, fn(expected_item, i) {
+      list_ext.each_with_index(expected_list, fn(expected_item, i) {
         let _ =
           items
-          |> list_lib.at(i)
+          |> list_ext.at(i)
           |> result.try_recover(fn(_) {
             panic as "Unable to get element from list"
           })
@@ -331,10 +331,10 @@ pub fn include_exactly(container: Container(List(any)), items: List(any)) -> Nil
       })
     }
     Not(expected_list) -> {
-      list_lib.each_with_index(expected_list, fn(expected_item, i) {
+      list_ext.each_with_index(expected_list, fn(expected_item, i) {
         let _ =
           items
-          |> list_lib.at(i)
+          |> list_ext.at(i)
           |> result.try_recover(fn(_) {
             panic as "Unable to get element from list"
           })
